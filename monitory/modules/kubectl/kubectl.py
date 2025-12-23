@@ -6,7 +6,7 @@ def run(cmd):
         cmd, shell=True, capture_output=True, text=True
     )
     if result.returncode != 0:
-        print(f"ERROR ejecutando: {cmd}")
+        print(f"ERROR: {cmd}")
         print(result.stderr)
         sys.exit(2)
     return result.stdout

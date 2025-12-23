@@ -5,8 +5,7 @@ ERROR_PHASES = ["Failed", "Unknown"]
 
 def check_pod_health():
     """
-    Revisa la salud de los pods en todos los namespaces.
-    Retorna SOLO pods con errores.
+    Monitors pod health across all namespaces. Returns ONLY failed or error-state pods
     """
 
     output = run("kubectl get pods --all-namespaces -o json")
@@ -20,7 +19,7 @@ def check_pod_health():
         name = pod["metadata"]["name"]
         phase = pod["status"].get("phase", "Unknown")
 
-        #  Errores a nivel de fase
+        #  Errors level phases
         if phase in ERROR_PHASES:
             has_issues = True
             rows.append([
@@ -28,11 +27,11 @@ def check_pod_health():
                 name,
                 phase,
                 "PodPhase",
-                f"Pod en fase {phase}"
+                f"Pod in phase {phase}"
             ])
             continue
 
-        #  Errores en contenedores
+        #  Containers error
         statuses = pod["status"].get("containerStatuses", [])
 
         for c in statuses:
@@ -50,11 +49,11 @@ def check_pod_health():
                         name,
                         "NotReady",
                         reason,
-                        message or "Contenedor en estado waiting"
+                        message or "Container waiting"
                     ])
                     break
 
-            # Contenedor terminado con error
+            # Containers finiched with errors
             if "terminated" in state:
                 reason = state["terminated"].get("reason", "")
                 exit_code = state["terminated"].get("exitCode", 0)

@@ -2,10 +2,11 @@ from modules.kubectl.kubectl import run
 
 def get_node_resources():
     """
-    Obtiene uso de CPU y memoria por nodo usando kubectl top nodes
-    Retorna:
-      rows: lista para tabla
-      has_pressure: True si algún nodo supera umbrales básicos
+    Retrieves CPU and memory usage per node using kubectl top nodes.
+    Returns:
+        tuple: A tuple containing:
+            - rows (list): A list of data formatted for table output.
+            - has_pressure (bool): True if any node exceeds basic resource thresholds.
     """
 
     output = run("kubectl top nodes --no-headers")
@@ -14,7 +15,7 @@ def get_node_resources():
     has_pressure = False
 
     for line in output.strip().splitlines():
-        # Ejemplo:
+        # Example:
         # worker01   250m   65%   2048Mi   70%
         parts = line.split()
 
@@ -27,7 +28,7 @@ def get_node_resources():
         mem = parts[3]
         mem_pct = parts[4]
 
-        # Umbrales básicos (ajustables)
+        # Basic thresholds, you cant set the value
         if cpu_pct.replace('%', '').isdigit() and int(cpu_pct.replace('%', '')) > 80:
             has_pressure = True
         if mem_pct.replace('%', '').isdigit() and int(mem_pct.replace('%', '')) > 80:

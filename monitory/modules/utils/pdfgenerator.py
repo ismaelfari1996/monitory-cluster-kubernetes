@@ -29,35 +29,35 @@ class PDFReport:
 
     def add_table(self, headers, rows):
         if not rows:
-            self.add_paragraph("No se encontraron datos.")
+            self.add_paragraph("No data found.")
             return
 
         num_cols = len(headers)
 
-        # Ancho usable de página
+        # Usable page width
         page_width, _ = A4
-        usable_width = page_width - 80  # márgenes
+        usable_width = page_width - 80  # Margins
 
-        # Detectar columnas largas por nombre
-        wide_columns = {"mensaje", "message", "descripcion", "reason"}
+        # Detect long columns by name
+        wide_columns = {"mensaje", "message", "description", "reason"}
 
-        # Peso por columna
+        # Column weight
         weights = []
         for h in headers:
             if h.lower() in wide_columns:
-                weights.append(3)   # columnas largas
+                weights.append(3)   # Wide columns
             else:
-                weights.append(1)   # columnas normales
+                weights.append(1)   # Standard columns
 
         total_weight = sum(weights)
 
-        # Calcular anchos finales
+        # Calculate final widths
         col_widths = [
             usable_width * (w / total_weight)
             for w in weights
         ]
 
-        # Construir tabla con Paragraph (wrap automático)
+        # Build table with Paragraphs (auto-wrap)
         table_data = []
 
         table_data.append([

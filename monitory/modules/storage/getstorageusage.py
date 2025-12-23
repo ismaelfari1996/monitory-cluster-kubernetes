@@ -7,7 +7,7 @@ from modules.utils.utils import format_kb
 
 def get_dir_size_kb(path):
     """
-    Retorna el tamaño de un directorio en GiB usando du
+    Returns directory size in GiB using the du command.
     """
     try:
         output = run(f"du -s {path} 2>/dev/null")
@@ -18,8 +18,7 @@ def get_dir_size_kb(path):
 
 def get_nfs_usage_by_pv(nfs_mount="/mnt/nfs"):
     """
-    Obtiene uso REAL de NFS por PV, soportando paths profundos
-    como /nfs/postgres/crunchy/instance1
+    Retrieves real NFS disk usage per Persistent Volume (PV).
     """
 
     rows = []
@@ -36,10 +35,10 @@ def get_nfs_usage_by_pv(nfs_mount="/mnt/nfs"):
         capacity = pv["spec"]["capacity"]["storage"]
 
         # Skip nfs mount pv
-        if nfs_path == "/nfs/": # Adjust with the correct PV volumen path used to mount NFS in the monitory pod
+        if nfs_path == "/nfs/": # Adjust the PV volume path used to mount the NFS share in the monitoring pod.
             continue
 
-        # Quitar /nfs y construir path real
+        # Removes the /nfs mount point from the string to build the absolute underlying path.
         relative_path = nfs_path.replace("/nfs", "", 1)
         real_path = os.path.join(nfs_mount, relative_path.lstrip("/"))
 

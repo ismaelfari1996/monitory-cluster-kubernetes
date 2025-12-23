@@ -108,7 +108,6 @@ def main():
         print("Monitoring finished...\n")
         exit(1)
     else:
-        print("\n Cluster saludable")
         message+=(
             "This email and monitoring report were automatically generated.\n\n"
             "Best regards."

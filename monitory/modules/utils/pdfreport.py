@@ -8,10 +8,10 @@ def generate_pdf_report(title, headers, rows, output_path):
     styles = getSampleStyleSheet()
     elements = []
 
-    # Título
+    # Title
     elements.append(Paragraph(f"<b>{title}</b>", styles["Title"]))
 
-    # Tabla (headers + rows)
+    # Table (headers + rows)
     table_data = [headers] + rows
 
     table = Table(table_data, repeatRows=1)

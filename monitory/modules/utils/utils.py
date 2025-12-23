@@ -22,7 +22,7 @@ def print_table(rows, headers):
 #----Function to nfs volumen manitory
 def parse_k8s_storage_to_kb(value):
     """
-    Convierte valores tipo 10Gi, 500Mi a KB
+    Converts GiB to KB.
     """
     if value.endswith("Gi"):
         return int(float(value.replace("Gi", "")) * 1024 * 1024)
@@ -33,9 +33,6 @@ def parse_k8s_storage_to_kb(value):
     return 0
 
 def format_kb(kb):
-    """
-    Convierte KB a formato humano
-    """
     if kb >= 1024 * 1024:
         return f"{kb / (1024 * 1024):.1f} GiB"
     if kb >= 1024:

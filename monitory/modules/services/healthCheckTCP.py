@@ -11,13 +11,14 @@ def tcp_check(host, port, timeout=3):
 
 def get_services_health():
     """
-    Revisa salud de los Services:
-    - HTTP para puertos comunes
-    - TCP para middleware (Kafka, Postgres, etc.)
+    Checks Service health:
+    - HTTP for common ports.
+    - TCP for middleware (Kafka, Postgres, etc.).
 
-    Retorna:
-      rows: filas para tabla
-      has_errors: True si algún servicio falla
+    Returns:
+        tuple: A tuple containing:
+            - rows (list): Rows formatted for table output.
+            - has_errors (bool): True if any service check fails.
     """
 
     output = run("kubectl get svc -A -o json")
@@ -30,7 +31,7 @@ def get_services_health():
         name = item["metadata"]["name"]
         ns = item["metadata"]["namespace"]
 
-        # Ignorar servicios sin IP (headless)
+        # Ignore services without an IP
         if item["spec"].get("clusterIP") == "None":
             continue
 

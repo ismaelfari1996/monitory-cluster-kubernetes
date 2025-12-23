@@ -3,8 +3,8 @@ from modules.kubectl.kubectl import run
 
 def get_nfs_filesystem_usage(mount_point="/mnt/nfs"):
     """
-    Ejecuta df -h sobre el punto de montaje NFS
-    y retorna la información del filesystem
+    Executes the df -h command against the NFS mount to return 
+    human-readable usage and capacity data.
     """
 
     try:
