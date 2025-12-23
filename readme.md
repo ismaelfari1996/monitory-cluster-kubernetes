@@ -1,0 +1,25 @@
+# Kubernetes Monitoring Pod
+
+This project is designed to deploy a **monitoring pod in Kubernetes** that allows interaction with the cluster in order to perform basic health, resource, and storage checks.  
+The monitoring logic runs inside the cluster and communicates directly with the Kubernetes API.
+
+---
+
+##  Requirements
+
+- A running Kubernetes cluster (k8s, k3s, EKS, etc.)
+- `kubectl` access to the cluster
+- An **NFS server** accessible from the cluster
+
+---
+
+##  Installation and Configuration
+
+### 1 Create the namespace
+
+Create the namespace where the monitoring pod will be deployed:
+
+```bash
+kubectl create namespace kubernetes-monitoring
+
+```
