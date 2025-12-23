@@ -23,3 +23,7 @@ Create the namespace where the monitoring pod will be deployed:
 kubectl create namespace kubernetes-monitoring
 
 ```
+---
+### 2 Copy monitoring scripts to NFS
+Copy the contents of the monitory/ directory into the NFS path configured for the pod. <br/>
+<strog>his directory will be mounted inside the pod and used to execute the monitoring scripts.</strong>
